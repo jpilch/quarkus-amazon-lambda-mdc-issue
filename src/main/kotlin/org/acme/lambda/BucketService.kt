@@ -13,6 +13,7 @@ import software.amazon.awssdk.services.s3.model.GetBucketAclResponse
 class BucketService(private val s3Client: S3AsyncClient, private val logger: Logger) {
 
     fun listBuckets(): Multi<Bucket> {
+        logger.info("listBuckets")
         val requestId = MDC.get("AWSRequestId").toString()
         logger.info("listBuckets, requestId: $requestId")
         return Uni.createFrom().completionStage { s3Client.listBuckets() }
@@ -20,6 +21,7 @@ class BucketService(private val s3Client: S3AsyncClient, private val logger: Log
     }
 
     fun getBucketAcl(bucket: Bucket): Uni<GetBucketAclResponse> {
+        logger.info("getBucketAcl")
         val requestId = MDC.get("AWSRequestId").toString()
         logger.info("getBucketAcl, requestId: $requestId")
         return Uni.createFrom().completionStage {

@@ -6,7 +6,7 @@ import org.jboss.logging.Logger
 
 class Lambda(private val logger: Logger, private val processor: Processor) : RequestHandler<Map<String, String>, String> {
     override fun handleRequest(input: Map<String, String>, context: Context): String {
-        logger.info("input: $input awsRequestId: ${context.awsRequestId}")
+        logger.info("handleRequest, requestId: ${context.awsRequestId}")
         processor.processRequest().await().indefinitely()
         return "OK"
     }
